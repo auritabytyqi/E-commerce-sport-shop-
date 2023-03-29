@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #fff;
+    background-image: url("./../images/background.jpg");
+    height: 40vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+    opacity: 0.9;
+}
+
+.info-section {
+    background-color: rgb(255, 255, 255);
+    width: 30%;
+    height: 60%;
+    margin: 4% 0 0 35%;
+    opacity: 0.8;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    
+}
+
+.title {
+    color: #000000;
+    opacity: 1;
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-align: center;
+    padding-top: 12%;
+
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.865);
+    opacity: 1;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: inherit;
+}
+
+.circle {
+    background-color: black;
+    background-image: url("./../images/user1.png");
+    background-repeat: no-repeat;
+    border: 2px solid #000000;
+    border-radius: 45px;
+    width: 6.5%;
+    height: 13%;
+    margin-left: 11.75%;
+    position: absolute;
+    z-index: 1;
+    margin-top: -3%;
+}
+
+form {
+    margin: 10%;
+    width: 80%;
+    height: 100%;
+}
+
+.form-item {
+    width: 90%;
+    margin: 7% 5%;
+    height: 10%;
+}
+
+.form-icon {
+    width: 11.5%;
+    height: 100%;
+    background: url("./../images/user2.png");
+    border: 1px solid black;
+}
+
+.form-input {
+    width: 90%;
+    height: 100%;
+    margin-top: -11.75%;
+    margin-left: 12%;
+    border: 1px solid black;
+}
+
+.form-input input {
+    width: 97%;
+    height: 83%;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.pages {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pages li {
+    margin-right: 30px;
+}
+
+.pages li:last-child {
+    margin-right: 0;
+}
+
+.pages li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.2s ease-in-out;
+}
+
+.pages li a:hover {
+    color: #ff6347;
+}
+
+.button a {
+    display: inline-block;
+    background-color: #ff6347;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.button a:hover {
+    background-color: #e53526;
+}
+
+footer div{
+    background-color: rgba(0, 0, 0, 0.865);
+    height: 10vw;
+}
+
