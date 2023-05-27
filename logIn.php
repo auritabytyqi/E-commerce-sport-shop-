@@ -50,15 +50,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a href="#"><img src="images/logo.png" alt="Logo"></a>
             </div>
             <ul class="pages">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutUs.html">About Us</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="aboutUs.php">About Us</a></li>
+                <li><a href="shop.php">Shop</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signUp.php">Sign Up</a></li>
             </ul>
             <div class="button">
-                <a href="cart.html">cart</a>
+                <a href="cart.php">cart</a>
             </div>
         </nav>
         <div class="info-section">
@@ -79,6 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" name="password" placeholder="Password"/>
                     </div>
                 </div>
+                <span class="error"><?php echo $err;?></span>
                 <div class="form-item" >
                     <input type="submit" value="Log In" style="width: 45%; height: 100%; margin-left: 28%; background-color: rgb(228, 160, 65); border: 1px solid black;"/> 
                 </div>

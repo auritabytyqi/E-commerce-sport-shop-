@@ -106,16 +106,16 @@ $validData = 1;
                 <a href="#"><img src="images/logo.png" alt="Logo"></a>
             </div>
             <!-- <ul class="pages">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutUs.html">About Us</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="signUp.html">Sign Up</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="aboutUs.php">About Us</a></li>
+                <li><a href="shop.php">Shop</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="signUp.php">Sign Up</a></li>
 
             </ul> -->
             <div class="button">
-                <a href="cart.html">cart</a>
+                <a href="cart.php">cart</a>
             </div>
         </nav>
         <div class="info-section">
