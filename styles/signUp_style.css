@@ -142,3 +142,7 @@ footer div{
     height: 10vw;
 }
 
+.error {
+    color: #e53526;
+    padding-left: 3px;
+}

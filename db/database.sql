@@ -4,12 +4,12 @@ CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(50),
   last_name VARCHAR(50),
-  date_of_birth DATE,
   address VARCHAR(255),
   city VARCHAR(50),
   state VARCHAR(50),
   country VARCHAR(50),
   zip_code VARCHAR(20),
+  phone_number VARCHAR(20),
   email VARCHAR(100) NOT NULL,
   password VARCHAR(100) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
