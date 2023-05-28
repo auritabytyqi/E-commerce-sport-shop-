@@ -1,3 +1,54 @@
+<?php
+session_start();
+
+// Connect to the specified database
+$servername = "localhost";
+$username = "ecommercepage";
+$password = "ecommerce";
+$dbname = "ecommercedb";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$sort = "";
+
+// Check if a sorting option is selected
+if (isset($_GET['sort'])) {
+    $sort = $_GET['sort'];
+
+    // Modify the SQL query based on the sorting option
+    switch ($sort) {
+        case "asc":
+            $query = "SELECT * FROM products ORDER BY price ASC";
+            break;
+        case "desc":
+            $query = "SELECT * FROM products ORDER BY price DESC";
+            break;
+        default:
+            $query = "SELECT * FROM products";
+    }
+} else {
+    $query = "SELECT * FROM products";
+}
+
+$result = mysqli_query($conn, $query);
+$html = "";
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $html .= "<a href=\"product.php\" class=\"product-link\">";
+    $html .= "<img src=".$row['image_url']." alt=\"Product 1\" class=\"product-image\">";
+    $html .= "<div class=\"product-info\">";
+    $html .= "<h3 class=\"product-name\">".$row['name']." <span>".$row['description']."</span></h3>";
+    $html .="<p class=\"product-price\">".$row['price']."</p>";
+    $html .= "</div></a>";
+}
+
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +58,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/shop_style.css" />
     <title>Shop</title>
+    <script>
+        // JavaScript function to handle sorting
+        function sortProducts(sortType) {
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('sort', sortType);
+            window.location.search = urlParams.toString();
+        }
+    </script>
 </head>
-
 <body>
     <header>
         <nav>
@@ -38,6 +96,9 @@
         <div class="shop-filters">
             <div class="search-products">
                 <input type="search" size="30" placeholder="&#128269; Search product..." />
+                <button onclick="sortProducts('desc')">Sort descending</button>
+                <button onclick="sortProducts('asc')">Sort ascending</button>
+           
             </div>
             <div class="filter-products">
                 <select id="filter-select" width="20" name="filter-select">
@@ -55,97 +116,7 @@
         </div>
 
         <div class="product-container">
-            <a href="#" class="product-link">
-                <img src="images/box.jpg" alt="Product 1" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$10.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/gloves.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/pingpong.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/football1.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                   <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/baseball.jpg" alt="Product 1" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$10.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/trainers.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                   <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/basketball.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                   <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/trainers2.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                   <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/box1.jpg" alt="Product 1" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$10.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/football.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                   <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/gloves2.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                   <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/trainers3.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                   <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
-            <a href="#" class="product-link">
-                <img src="images/tennis.jpg" alt="Product 2" class="product-image">
-                <div class="product-info">
-                   <h3 class="product-name">PRODUCT <span>Product descrip...</span></h3>
-                    <p class="product-price">$15.00</p>
-                </div>
-            </a>
+        <?php echo $html; ?>
         </div>
 
     </main>

@@ -1,9 +1,8 @@
 <?php
-	// Connect to the specified database
 	$servername = "localhost";
-	$username = "db";
-	$password = "password";
-	$dbname = "ecommercedatabase";
+	$username = "ecommercepage";
+	$password = "ecommerce";
+	$dbname = "ecommercedb";
 
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
