@@ -23,11 +23,19 @@
                 <li><a href="#contact-id">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signUp.php">Sign Up</a></li>
-                <li><a href="logout.php">Log out</a></li>
+                <li><a href="logout.php">Log Out</a></li>
             </ul>
-            <div class="button">
+              <div class="button">
                 <a href="cart.php">cart</a>
             </div>
+            <style>
+               .button a{
+                    color: #000;
+                    margin: 10px 5px 10px 0px;
+                }
+                
+                
+            </style>
         </nav>
     </header>
     <main>

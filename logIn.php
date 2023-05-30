@@ -31,11 +31,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
         } else {
-            $err = "Authentication error";
+            $err = "<script>alert(\"Authentication error\")</script>";
         }
     }
     else {
-        $err = "Authentication error";
+        echo "<script>alert(\"Your account does not exists\")</script>";
+        header("Location: signUp.php");
     }
 
 }
@@ -62,11 +63,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <li><a href="#contact-id">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signUp.php">Sign Up</a></li>
-                <li><a href="logout.php">Log out</a></li>
+                <li><a href="logout.php">Log Out</a></li>
             </ul>
-            <div class="button">
+              <div class="button">
                 <a href="cart.php">cart</a>
             </div>
+            <style>
+               .button a{
+                    color: #000;
+                    margin: 10px 5px 10px 0px;
+                }
+                
+                
+            </style>
         </nav>
         <div class="info-section">
             <div class="circle"></div>
@@ -83,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="form-item" >
                     <div class="form-icon" style="background: url(./images/password.png);"></div>
                     <div class="form-input">
-                        <input type="text" name="password" placeholder="Password"/>
+                        <input type="password" name="password" placeholder="Password"/>
                     </div>
                 </div>
                 <span class="error"><?php echo $err;?></span>
@@ -91,6 +100,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="submit" value="Log In" style="width: 45%; height: 100%; margin-left: 28%; background-color: rgb(228, 160, 65); border: 1px solid black;"/> 
                 </div>
             </form>
+            <style>
+                header{ 
+                    height: 35vw;
+                }
+                .form-input {
+                    margin-top: -32px;
+                }
+                .form-input  input{
+                    height: 100%;
+                    width: 100%;
+                }
+                .form-item {
+                    height: 30px;
+                }
+
+                .circle {
+                    width: 80px;
+                }
+               
+            </style>
         </div>
     </header>
     <footer>

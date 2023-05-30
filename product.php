@@ -51,6 +51,35 @@ if ($result) {
     <link rel="stylesheet" type="text/css" href="styles/product_style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <title>Product</title>
+    <script>
+  // Function to increase the count value
+  function increaseCount() {
+    var countElement = document.querySelector(".count-value");
+    var count = parseInt(countElement.innerText);
+    count++;
+    countElement.innerText = count;
+  }
+
+  // Function to decrease the count value
+  function decreaseCount() {
+    var countElement = document.querySelector(".count-value");
+    var count = parseInt(countElement.innerText);
+    if (count > 0) {
+      count--;
+      countElement.innerText = count;
+    }
+  }
+  function submitRating() {
+    // Get the selected rating value
+    const rating = document.querySelector('input[name="stars"]:checked').value;
+
+    // Display the selected rating in the console
+    console.log('Stars selected:', rating);
+
+    // Show an alert
+    alert('Thank you for your review!');
+  }
+</script>
 </head>
 
 <body>
@@ -66,11 +95,19 @@ if ($result) {
                 <li><a href="#contact-id">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signUp.php">Sign Up</a></li>
-                <li><a href="logout.php">Log out</a></li>
+                <li><a href="logout.php">Log Out</a></li>
             </ul>
-            <div class="button">
+              <div class="button">
                 <a href="cart.php">cart</a>
             </div>
+            <style>
+               .button a{
+                    color: #000;
+                    margin: 10px 5px 10px 0px;
+                }
+                
+                
+            </style>
         </nav>
     </header>
     <main>
@@ -81,7 +118,7 @@ if ($result) {
             <div class="product-title">
                 <?php echo $productName ?>
             </div>
-            <form class="rating">
+            <form class="rating" onsubmit="event.preventDefault(); submitRating();">
                 <label>
                   <input type="radio" name="stars" value="1" />
                   <span class="icon">★</span>
@@ -112,18 +149,12 @@ if ($result) {
                   <span class="icon">★</span>
                   <span class="icon">★</span>
                 </label>
+                
               </form>
               <hr style="margin: 2% 5%;">
               <div class="price-color">
                 <div class="price">
                     $  <?php echo $productPrice ?>
-                </div>
-                <div class="select-colors">
-                    <select id="filter-select"  name="filter-select">
-                        <option value="default"> Select Color</option>
-                        <option value="color">Blue </option>
-                        <option value="color">Yellow</option>    
-                    </select>
                 </div>
               </div>
               <hr style="margin: 2% 5%;">
@@ -132,10 +163,10 @@ if ($result) {
               <div class="cart-quantity">
                 <input type="button" value="Add To Cart" class="add-to-cart"/>
                 <div class="quantity">
-                    <span>Count: 3</span>
-                    <input type="button" value="-"/>
-                    <input type="button" value="+"/>
-                </div>
+  <span>Count: <span class="count-value">0</span></span>
+  <input type="button" class="button-minus" value="-" onclick="decreaseCount()"/>
+  <input type="button" class="button-plus" value="+" onclick="increaseCount()"/>
+</div>
               </div>
         </div>
     </main>
@@ -228,6 +259,10 @@ if ($result) {
   background-color: #ccc;
   padding: 20px;
   text-align: center;
+}
+
+footer div {
+    background-color: #ccc;
 }
 
 .container {
