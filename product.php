@@ -1,3 +1,46 @@
+<?php
+session_start();
+
+$productId = $_GET['id']; // Retrieve the product ID from the URL
+
+// Connect to the database and fetch the product data based on the ID
+$servername = "localhost";
+$username = "ecommercepage";
+$password = "ecommerce";
+$dbname = "ecommercedb";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+if (is_numeric($productId)) {
+    // If $productId is an integer, use the query for "products" table
+    $query = "SELECT * FROM products WHERE id = '$productId'";
+} else {
+    // If $productId is not an integer, use the query for "productsinsale" table
+    $query = "SELECT * FROM productsinsale WHERE id = '$productId'";
+}
+
+$result = mysqli_query($conn, $query);
+
+if ($result) {
+    $productData = mysqli_fetch_assoc($result);
+    // Use the product data to display the details on the product.php page
+    // For example:
+    $productName = $productData['name'];
+    $productDescription = $productData['description'];
+    $productPrice = $productData['price'];
+    $productURL = $productData['image_url'];
+} else {
+    echo "Query execution failed: " . mysqli_error($conn);
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,11 +61,12 @@
             </div>
             <ul class="pages">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="aboutUs.php">About Us</a></li>
+                <li><a href="index.php#about-us-section-id">About Us</a></li>
                 <li><a href="shop.php">Shop</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="#contact-id">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signUp.php">Sign Up</a></li>
+                <li><a href="logout.php">Log out</a></li>
             </ul>
             <div class="button">
                 <a href="cart.php">cart</a>
@@ -31,16 +75,11 @@
     </header>
     <main>
         <div class="product-main-image">
-            <img src="images/trainers3.jpg" />
-            <div class="product-small-images">
-                <div><img src="images/trainers.jpg" /></div>
-                <div><img src="images/trainers2.jpg" /></div>
-                <div><img src="images/trainers3.jpg" /></div>
-            </div>
+        <?php echo "<img src=\"".$productURL."\"/>" ?>
         </div>
         <div class="product-content">
             <div class="product-title">
-                PRODUCT TITLE
+                <?php echo $productName ?>
             </div>
             <form class="rating">
                 <label>
@@ -77,7 +116,7 @@
               <hr style="margin: 2% 5%;">
               <div class="price-color">
                 <div class="price">
-                    $ 1232
+                    $  <?php echo $productPrice ?>
                 </div>
                 <div class="select-colors">
                     <select id="filter-select"  name="filter-select">
@@ -88,7 +127,7 @@
                 </div>
               </div>
               <hr style="margin: 2% 5%;">
-              <div class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean luctus euismod volutpat. Donec quis arcu finibus, mollis purus ac, suscipit nisi. Etiam dapibus maximus lectus eget elementum. Donec dictum, ipsum ut iaculis aliquet, mi ligula pellentesque nunc, non porta risus mi aliquam purus.  Phasellus ac scelerisque urna. Sed at libero vitae nulla vulputate sodales at at justo. Suspendisse suscipit dui dui, et malesuada ante tincidunt vel. </div>
+              <div class="product-description"> <?php echo $productDescription ?></div>
               <hr style="margin: 2% 70% 2% 5%;">
               <div class="cart-quantity">
                 <input type="button" value="Add To Cart" class="add-to-cart"/>
@@ -179,10 +218,30 @@
         </div>
     </div>
     <footer>
-        <div>
+  <div class="container">
+    <p>&copy; 2023 SPORTCHEK. All rights reserved.</p>
+    <p>Address: 123 Main Street, City, State</p>
+    <p id="contact-id">Phone: 123-456-7890 | Email: info@sportchek.com</p>
+  </div>
+</footer>
+<style>footer {
+  background-color: #ccc;
+  padding: 20px;
+  text-align: center;
+}
 
-        </div>
-    </footer>
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+p {
+  margin: 10px 0;
+}
+</style>
 </body>
 
 </html>
+
+
+<?php mysqli_close($conn); ?>

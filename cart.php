@@ -18,12 +18,12 @@
             </div>
             <ul class="pages">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="aboutUs.php">About Us</a></li>
+                <li><a href="index.php#about-us-section-id">About Us</a></li>
                 <li><a href="shop.php">Shop</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="#contact-id">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signUp.php">Sign Up</a></li>
-
+                <li><a href="logout.php">Log out</a></li>
             </ul>
             <div class="button">
                 <a href="cart.php">cart</a>
@@ -181,10 +181,27 @@
         </div>
     </main>
     <footer>
-        <div>
+  <div class="container">
+    <p>&copy; 2023 SPORTCHEK. All rights reserved.</p>
+    <p>Address: 123 Main Street, City, State</p>
+    <p id="contact-id">Phone: 123-456-7890 | Email: info@sportchek.com</p>
+  </div>
+</footer>
+<style>footer {
+  background-color: #ccc;
+  padding: 20px;
+  text-align: center;
+}
 
-        </div>
-    </footer>
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+p {
+  margin: 10px 0;
+}
+</style>
 </body>
 
 </html>

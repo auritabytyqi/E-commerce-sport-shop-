@@ -1,3 +1,25 @@
+<?php
+session_start();
+$isLoggedIn = false;
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    $isLoggedIn = true;
+}
+$servername = "localhost";
+$username = "ecommercepage";
+$password = "ecommerce";
+$dbname = "ecommercedb";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM productsinsale";
+$result = $conn->query($sql);
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,12 +40,12 @@
             </div>
             <ul class="pages">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="aboutUs.php">About Us</a></li>
+                <li><a href="#about-us-section-id">About Us</a></li>
                 <li><a href="shop.php">Shop</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="#contact-id">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signUp.php">Sign Up</a></li>
-
+                <li><a href="logout.php">Log out</a></li>
             </ul>
             <div class="button">
                 <a href="cart.php">cart</a>
@@ -33,73 +55,129 @@
             <div class="title">
                 SPORTCHEK
             </div>
-            <div class="quote">
-
-            </div>
-            <div class="location">
-
+            <div class="title">
+                <i>
+                "Unleash your potential with top-notch gear."</i>
             </div>
         </div>
     </header>
     <main>
-        <div class="zbritjet-ofertat">
-            <div class="sales-title">
-                Products in sale
-            </div>
-            <div class="featured-dishes-container">
-                <span id="left-button" class="fa fa-chevron-left left-arrow"></span>
-                <div class="scroll-container">
-                    <div class="scroll-item">
-                        <div class="dish-image-container" style="background-image: url('images/basketball.jpg');">
-                        </div>
-                        <p>Salad</p>
-                        <h2>ITALIAN FRESH SALAD</h2>
-                        <p>Italian salad consists of tomatoes, onions, feta cheese and olives</p>
-                        <input id="featured-dishes-price" type="button" value="$12">
-                    </div>
-                    <div class="scroll-item">
-                        <div class="dish-image-container" style="background-image: url(images/baseball.jpg);">
-                        </div>
-                        <p>Desserts</p>
-                        <h2>BLUEBERRY ICE-CHOCO</h2>
-                        <p>Italian salad consists of tomatoes, onions, feta cheese and olives</p>
-                        <input id="featured-dishes-price" type="button" value="$18">
-                    </div>
-                    <div class="scroll-item">
-                        <div class="dish-image-container" style="background-image: url(images/football.jpg);">
-                        </div>
-                        <p>Appetizers</p>
-                        <h2>FRIED SALMON DISH</h2>
-                        <p>Italian salad consists of tomatoes, onions, feta cheese and olives</p>
-                        <input id="featured-dishes-price" type="button" value="$20">
-                    </div>
-                    <div class="scroll-item">
-                        <div class="dish-image-container" style="background-image: url('images/basketball.jpg');">
-                        </div>
-                        <p>Meet</p>
-                        <h2>TENDERLOIN STEAK</h2>
-                        <p>Italian salad consists of tomatoes, onions, feta cheese and olives</p>
-                        <input id="featured-dishes-price" type="button" value="$12">
-                    </div>
-                    <div class="scroll-item">
-                        <div class="dish-image-container" style="background-image: url('images/baseball.jpg');">
-                        </div>
-                        <p>Breakfast</p>
-                        <h2>WESTERN OMLETTE</h2>
-                        <p>Italian salad consists of tomatoes, onions, feta cheese and olives</p>
-                        <input id="featured-dishes-price" type="button" value="$12">
-                    </div>
+    <?php
+   
+        if ($isLoggedIn) {
+            echo '
+            <div class="zbritjet-ofertat">
+                <div class="sales-title">
+                    Products in sale
                 </div>
-                <span id="right-button" class="fa fa-chevron-right right-arrow"></span>
-            </div>
-            </div>
-        </div>
-        <div class="about-us-section">
-            <div class="about-us-title">
-                About Us
-            </div>
-        </div>
+                <div class="featured-dishes-container">
+                    <div class="scroll-container">';
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            // Retrieve the values from the row
+                            $name = $row["name"];
+                            $description = $row["description"];
+                            $price = $row["price"];
+                            $image_url = $row["image_url"];
+                            $id = $row["id"];
+                    
+                            // Echo the data in the desired format
+                            echo '<div class="scroll-item">';
+                            echo '<div class="dish-image-container" style="background-image: url(\'' . $image_url . '\');"></div>';
+                            echo '<p >Product in sale</p>';
+                            echo '<h2><a href="product.php?id='.$id.'" class="prsaletitle">' . $name . '</a></h2>';
+                            echo '<p>' . $description . '</p>';
+                            echo '<div class="salebutton"><input id="featured-dishes-price" type="button" value="$' . $price . '"></div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "No products found.";
+                    }        
+        echo ' </div>
+                </div>
+            </div>';
+        }
+        ?>
+        <style>.scroll-container {
+    width: 85%;
+    margin: 0px 60px;
+    
+}
+    .prsaletitle {
+        color: black;
+        margin-left: 80px;
+           }
+    .salebutton {
+        margin-left: 130px;
+    }
+</style>
+        <div class="about-us-section" id="about-us-section-id">
+    <div class="about-us-title">
+        About Us
+    </div>
+    <div class="about-content">
+        <p>Welcome to SPORTCHEK, your ultimate destination for all your sporting needs. We are passionate about sports and dedicated to providing high-quality sports equipment, apparel, and accessories to athletes of all levels.</p>
+        <p>At SPORTCHEK, we understand the importance of having the right gear to excel in your chosen sport. Whether you're a professional athlete, an enthusiastic amateur, or just starting your sporting journey, we have everything you need to elevate your performance and enjoy the game to the fullest.</p>
+    </div>
+</div>
+<style>
+    
+  
+.about-us-section {
+    background-color: #bab1b1;
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+.about-us-title {
+    font-size: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.about-content {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.info-section .title {
+    height: 100px;
+}
+
+
+</style>
     </main>
+    <footer>
+  <div class="container">
+    <p>&copy; 2023 SPORTCHEK. All rights reserved.</p>
+    <p>Address: 123 Main Street, City, State</p>
+    <p id="contact-id">Phone: 123-456-7890 | Email: info@sportchek.com</p>
+  </div>
+</footer>
+<style>footer {
+  background-color: #ccc;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+p {
+  margin: 10px 0;
+}
+</style>
+
 </body>
 
 </html>
+
+
+<?php 
+$conn->close();
+?>

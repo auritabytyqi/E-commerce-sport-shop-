@@ -137,11 +137,6 @@ form {
     background-color: #e53526;
 }
 
-footer div{
-    background-color: rgba(0, 0, 0, 0.865);
-    height: 10vw;
-}
-
 .error {
     color: #e53526;
     padding-left: 3px;

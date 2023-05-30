@@ -58,7 +58,7 @@ header {
     line-height: 1;
     letter-spacing: 2px;
     text-align: center;
-    padding-top: 3%;
+    padding-top: 5%;
 
 }
 nav {
@@ -168,11 +168,12 @@ nav {
     cursor: pointer;
 }
 .scroll-container {
-    width: 100%;
+    width: 90%;
     height: 600px;  
     display: flex;
     overflow-x: scroll;
     white-space: wrap;
+    margin: 0px 50px;
     
 }
 .scroll-item {
@@ -204,5 +205,3 @@ nav {
     background-size: cover;
     background-position: center;
 }
-
-  

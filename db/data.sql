@@ -36,3 +36,12 @@ VALUES
     ('GLOVES2', 'Product descrip...', 15.00, 6, 'images/gloves2.jpg'),
     ('TRAINERS3', 'Product descrip...', 15.00, 1, 'images/trainers3.jpg'),
     ('TENNIS', 'Product descrip...', 15.00, 10, 'images/tennis.jpg');
+
+
+INSERT INTO productsinsale (name, description, price, category_id, image_url)
+VALUES
+    ('CHESS TABLE', ' A stylish and functional table designed specifically for playing chess. This table features a square playing surface with a checkered pattern, providing a dedicated space for intense chess matches', 10.00, 8, 'images/chessTable.jpg'),
+    ('PING PONG BALLS', 'High-quality balls specifically designed for playing ping pong. These lightweight and durable balls ensure excellent bounce and performance during gameplay', 15.00, 9, 'images/pingpongBalls.jpg'),
+    ('VOLLEYBALL BALL', 'A regulation-size volleyball suitable for both casual and competitive play. Its sturdy construction and reliable grip make it ideal for beach, indoor, or outdoor volleyball games', 15.00, 12, 'images/volleyBall.jpg'),
+    ('SPORT BAG', ' A versatile and spacious sports bag designed to carry all your essential gear. With multiple compartments and a comfortable carrying strap, it is perfect for athletes on the go', 15.00, 11, 'images/sportBag.jpg'),
+    ('SPORT BOTTLE', ' A convenient and portable water bottle for sports enthusiasts. The bottles leak-proof design and easy-to-use flip-top lid make it a reliable choice for staying hydrated during workouts and outdoor activities.', 10.00, 11, 'images/sportBottle.png');

@@ -74,11 +74,6 @@ main {
     height: 50px;
 }
 
-footer div {
-    background-color: rgba(0, 0, 0, 0.865);
-    height: 10vw;
-}
-
 .cart-title {
     width: 88vw;
     height: 8%;
