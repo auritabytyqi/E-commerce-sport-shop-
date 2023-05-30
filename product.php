@@ -37,7 +37,28 @@ if ($result) {
     echo "Query execution failed: " . mysqli_error($conn);
 }
 
+$commentsQuery = "SELECT * FROM comments WHERE product_id = '$productId'";
+$resultComments = mysqli_query($conn,$commentsQuery);
 
+if(isset($_GET['commentId'])){
+$commentId = $_GET['commentId']; 
+$updateQuery = "UPDATE comments SET likes = likes + 1 WHERE id = '$commentId'";
+mysqli_query($conn, $updateQuery);
+$url = "product.php?id=" . $productId; // Construct the URL
+
+header("Location: " . $url);
+
+}
+
+if(isset($_GET['commentValue']) && isset($_GET['userName'])){
+    $comment = $_GET['commentValue']; 
+    $name = $_GET['userName']; 
+    $updateQuery = "INSERT INTO comments (product_id, comment_text, user_name, likes) VALUES ('$productId', '$comment', '$name', 0)";
+    mysqli_query($conn, $updateQuery);
+    $url = "product.php?id=" . $productId; // Construct the URL
+
+      header("Location: " . $url);
+    }
 ?>
 
 
@@ -73,11 +94,24 @@ if ($result) {
     // Get the selected rating value
     const rating = document.querySelector('input[name="stars"]:checked').value;
 
-    // Display the selected rating in the console
-    console.log('Stars selected:', rating);
-
     // Show an alert
     alert('Thank you for your review!');
+  }
+
+  function addLikes(commentId) {
+    const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('commentId', commentId);
+            window.location.search = urlParams.toString();
+  }
+
+  function addComment(){
+    const name = prompt("Write your name");
+    const comment = prompt("Add your comment");
+    const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('userName', name);
+            urlParams.set('commentValue', comment);
+            window.location.search = urlParams.toString();
+            ;
   }
 </script>
 </head>
@@ -121,25 +155,25 @@ if ($result) {
             <form class="rating" onsubmit="event.preventDefault(); submitRating();">
                 <label>
                   <input type="radio" name="stars" value="1" />
-                  <span class="icon">★</span>
+                  <span class="icon" onclick="submitRating() ">★</span>
                 </label>
                 <label>
                   <input type="radio" name="stars" value="2" />
                   <span class="icon">★</span>
-                  <span class="icon">★</span>
+                  <span class="icon" onclick="submitRating() ">★</span>
                 </label>
                 <label>
                   <input type="radio" name="stars" value="3" />
                   <span class="icon">★</span>
                   <span class="icon">★</span>
-                  <span class="icon">★</span>   
+                  <span class="icon" onclick="submitRating() ">★</span>   
                 </label>
                 <label>
                   <input type="radio" name="stars" value="4" />
                   <span class="icon">★</span>
                   <span class="icon">★</span>
                   <span class="icon">★</span>
-                  <span class="icon">★</span>
+                  <span class="icon" onclick="submitRating() ">★</span>
                 </label>
                 <label>
                   <input type="radio" name="stars" value="5" />
@@ -147,7 +181,7 @@ if ($result) {
                   <span class="icon">★</span>
                   <span class="icon">★</span>
                   <span class="icon">★</span>
-                  <span class="icon">★</span>
+                  <span class="icon"onclick="submitRating() ">★</span>
                 </label>
                 
               </form>
@@ -176,76 +210,28 @@ if ($result) {
             Comments
         </div>
         <div class="comments-container">
-            <div class="comment">
-                <div class="circle"></div>
-                <div class="user-info">
-                    <div class="user-name">PERSON #1</div>
-                    <div class="date-time"><output type="datetime-local">22/06/2023 -- 14:56</output></div>
-                    <div class="rate"><button class="likes"><i class="fa fa-heart"></i></button><span>15 likes</span></div>
-                </div>
-                <div class="comment-content">
-                    Morbi lorem ante, pulvinar id justo eu, molestie condimentum libero. Sed vestibulum lobortis nulla, et ullamcorper libero tempus sit amet. Curabitur viverra nibh eget pellentesque fermentum. In ac lectus et dolor hendrerit rutrum. Donec imperdiet enim ac enim ultricies sodales. Donec mauris ante, aliquam vel accumsan eu, tincidunt vitae lacus. Fusce ultricies nisl quis velit auctor varius. Pellentesque vitae urna consequat, ultricies sapien vel, pulvinar mauris.
-                    Morbi lorem ante, pulvinar id justo eu, molestie condimentum libero. Sed vestibulum lobortis nulla, et ullamcorper libero tempus sit amet. Curabitur viverra nibh eget pellentesque fermentum. In ac lectus et dolor hendrerit rutrum. Donec imperdiet enim ac enim ultricies sodales. Donec mauris ante, aliquam vel accumsan eu, tincidunt vitae lacus. Fusce ultricies nisl quis velit auctor varius. Pellentesque vitae urna consequat, ultricies sapien vel, pulvinar mauris.
-                </div>
-            </div>
-            <div class="comment">
-                <div class="circle"></div>
-                <div class="user-info">
-                    <div class="user-name">PERSON #1</div>
-                    <div class="date-time"><output type="datetime-local">22/06/2023 -- 14:56</output></div>
-                    <div class="rate"><button class="likes"><i class="fa fa-heart"></i></button><span>15 likes</span></div>
-                </div>
-                <div class="comment-content">
-                    Morbi lorem ante, pulvinar id justo eu, molestie condimentum libero. Sed vestibulum lobortis nulla, et ullamcorper libero tempus sit amet. Curabitur viverra nibh eget pellentesque fermentum. In ac lectus et dolor hendrerit rutrum. Donec imperdiet enim ac enim ultricies sodales. Donec mauris ante, aliquam vel accumsan eu, tincidunt vitae lacus. Fusce ultricies nisl quis velit auctor varius. 
-                </div>
-            </div>
-            <div class="comment">
-                <div class="circle"></div>
-                <div class="user-info">
-                    <div class="user-name">PERSON #1</div>
-                    <div class="date-time"><output type="datetime-local">22/06/2023 -- 14:56</output></div>
-                    <div class="rate"><button class="likes"><i class="fa fa-heart"></i></button><span>15 likes</span></div>
-                </div>
-                <div class="comment-content">
-                    Morbi lorem ante, pulvinar id justo eu, molestie condimentum libero. Sed vestibulum lobortis nulla, et ullamcorper libero tempus sit amet. Curabitur viverra nibh eget pellentesque fermentum. In ac lectus et dolor hendrerit rutrum. Donec imperdiet enim ac enim ultricies sodales. Donec mauris ante, aliquam vel accumsan eu, tincidunt vitae lacus. Fusce ultricies nisl quis velit auctor varius. 
-                </div>
-            </div>
-            <div class="comment">
-                <div class="circle"></div>
-                <div class="user-info">
-                    <div class="user-name">PERSON #1</div>
-                    <div class="date-time"><output type="datetime-local">22/06/2023 -- 14:56</output></div>
-                    <div class="rate"><button class="likes"><i class="fa fa-heart"></i></button><span>15 likes</span></div>
-                </div>
-                <div class="comment-content">
-                    Morbi lorem ante, pulvinar id justo eu, molestie condimentum libero. Sed vestibulum lobortis nulla, et ullamcorper libero tempus sit amet. Curabitur viverra nibh eget pellentesque fermentum. In ac lectus et dolor hendrerit rutrum. Donec imperdiet enim ac enim ultricies sodales. Donec mauris ante, aliquam vel accumsan eu, tincidunt vitae lacus. Fusce ultricies nisl quis velit auctor varius. 
-                </div>
-            </div>
-            <div class="comment">
-                <div class="circle"></div>
-                <div class="user-info">
-                    <div class="user-name">PERSON #1</div>
-                    <div class="date-time"><output type="datetime-local">22/06/2023 -- 14:56</output></div>
-                    <div class="rate"><button class="likes"><i class="fa fa-heart"></i></button><span>15 likes</span></div>
-                </div>
-                <div class="comment-content">
-                    Morbi lorem ante, pulvinar id justo eu, molestie condimentum libero. Sed vestibulum lobortis nulla, et ullamcorper libero tempus sit amet. Curabitur viverra nibh eget pellentesque fermentum. In ac lectus et dolor hendrerit rutrum. Donec imperdiet enim ac enim ultricies sodales. Donec mauris ante, aliquam vel accumsan eu, tincidunt vitae lacus. Fusce ultricies nisl quis velit auctor varius. 
-                </div>
-            </div>
-            <div class="comment">
-                <div class="circle"></div>
-                <div class="user-info">
-                    <div class="user-name">PERSON #1</div>
-                    <div class="date-time"><output type="datetime-local">22/06/2023 -- 14:56</output></div>
-                    <div class="rate"><button class="likes"><i class="fa fa-heart"></i></button><span>15 likes</span></div>
-                </div>
-                <div class="comment-content">
-                    Morbi lorem ante, pulvinar id justo eu, molestie condimentum libero. Sed vestibulum lobortis nulla, et ullamcorper libero tempus sit amet. Curabitur viverra nibh eget pellentesque fermentum. In ac lectus et dolor hendrerit rutrum. Donec imperdiet enim ac enim ultricies sodales. Donec mauris ante, aliquam vel accumsan eu, tincidunt vitae lacus. Fusce ultricies nisl quis velit auctor varius. 
-                </div>
-            </div>
+          <?php 
+          if($resultComments){
+            while ($row = mysqli_fetch_assoc($resultComments)) {
+                $userName = $row['user_name'];
+                $commentText = $row['comment_text'];
+                $likes = $row['likes'];
+                $commentId= $row['id'];
+               echo  "<div class=\"comment\">";
+               echo  "<div class=\"circle\"></div>";
+               echo  "<div class=\"user-info\">";
+                echo  "<div class=\"user-name\">".$userName."</div>";
+               echo  " <div class=\"rate\"><button class=\"likes\" onclick=\"addLikes(".$commentId.")\"><i class=\"fa fa-heart\"></i></button><span>".$likes." likes</span></div>";
+               echo "</div>";
+               echo " <div class=\"comment-content\">".$commentText;
+                echo   " </div>";
+                echo   " </div>";
+            }
+        }
+          ?>
         </div>
         <div class="add-comment">
-            <input type="submit" value="+"/>
+            <input type="submit" value="+" onclick="addComment()" />
         </div>
     </div>
     <footer>

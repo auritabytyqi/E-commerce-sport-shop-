@@ -79,7 +79,9 @@ CREATE TABLE reviews (
 
 CREATE TABLE comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    review_id INT,
+    product_id INT,
     comment_text VARCHAR(255),
-    FOREIGN KEY (review_id) REFERENCES reviews(id)
+    user_name VARCHAR(255),
+    likes INT,
+    FOREIGN KEY (product_id) REFERENCES products(id)
 );
