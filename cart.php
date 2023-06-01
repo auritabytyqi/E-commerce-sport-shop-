@@ -11,7 +11,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
-}
+} 
+
 $userid = null;
 if(isset($_SESSION['user'])) {
     $userid = $_SESSION['user']['id'];
@@ -169,13 +170,19 @@ alert("Payment was successful: payWithCash");
                     <button class="finish-payment" onclick="payWithCash()">Finish</button>
                 </div>
             </div>
-    <button id="paypal-button">Pay with PayPal</button>
+            <div class="pagesa-cash"> Pay with PayPal
+                <div>
+                <button id="paypal-button">Pay with PayPal</button>
+
+                </div>
+            </div>
 
     <script>
         function loadPayPalSDK() {
             var scriptTag = document.createElement('script');
-            scriptTag.src = 'https://www.paypal.com/sdk/js?client-id=AXgJ5Nm72vb8rEtZtAYwsPMmXQ2Qgb6U3qlMFyaYaxW8n_s9XN3ujOR7W1UTbadqn0WctvCBzWXdxoBV';
+            scriptTag.src = 'https://www.paypal.com/sdk/js?client-id=AXgJ5Nm72vb8rEqZtAYwaPMmXQ2Qgb6U3alMFyaYaxW8n_s9XN3ujOR7W0UTbadqn0WctvCBzWXdxoBU&currency=USD';
             document.head.appendChild(scriptTag);
+            window.location.href = 'https://developer.paypal.com/home';
         }
 
         var paypalButton = document.getElementById('paypal-button');
