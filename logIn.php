@@ -104,6 +104,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 header{ 
                     height: 35vw;
                 }
+                .form-icon{
+                    width: 30px;
+                }
                 .form-input {
                     margin-top: -32px;
                 }

@@ -75,7 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $emailErr = 'The email you provided is already registered';
         $validData = 0;
     }
-   print_r($validData);
     if($validData == 1) {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $query = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, city, address, country, zip_code, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -123,6 +122,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                .button a{
                     color: #000;
                     margin: 10px 5px 10px 0px;
+                }
+                 .form-icon{
+                    width: 30px;
                 }
                 .fa.fa-lock {
   color: #ffffff;
@@ -218,7 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
             <style>
                 header{ 
-                    height: 62vw;
+                    height: 59vw;
                 }
                 .form-input {
                     margin-top: -32px;

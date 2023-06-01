@@ -2,7 +2,9 @@
 session_start();
 
 $productId = $_GET['id']; // Retrieve the product ID from the URL
-
+if(isset($_SESSION['user'])) {
+    $userid = $_SESSION['user']['id'];
+  }
 // Connect to the database and fetch the product data based on the ID
 $servername = "localhost";
 $username = "ecommercepage";
@@ -14,6 +16,11 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+if(isset($_SESSION['user'])) {
+    $firstName = $_SESSION['user']['first_name'];
+    $lastName = $_SESSION['user']['last_name'];
+  }
 
 if (is_numeric($productId)) {
     // If $productId is an integer, use the query for "products" table
@@ -47,7 +54,23 @@ mysqli_query($conn, $updateQuery);
 $url = "product.php?id=" . $productId; // Construct the URL
 
 header("Location: " . $url);
+}
 
+if(isset($_GET['added'])){
+    $added = $_GET['added']; 
+    $tabela = "product_id";
+
+    if (!is_numeric($productId)){
+      $tabela = "productsinsale_id";
+    }
+    if($added){
+      
+    $updateQuery = "INSERT INTO cart_products (user_id,". $tabela.", quantity) VALUES ('$userid', '$productId',1)";
+    mysqli_query($conn, $updateQuery);
+    }
+    $url = "product.php?id=" . $productId; // Construct the URL
+    
+    header("Location: " . $url);
 }
 
 if(isset($_GET['commentValue']) && isset($_GET['userName'])){
@@ -59,6 +82,10 @@ if(isset($_GET['commentValue']) && isset($_GET['userName'])){
 
       header("Location: " . $url);
     }
+
+$countProducts = 0;
+
+echo ''
 ?>
 
 
@@ -104,6 +131,13 @@ if(isset($_GET['commentValue']) && isset($_GET['userName'])){
             window.location.search = urlParams.toString();
   }
 
+  function addToCart(value) {
+    const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('added', value);
+            window.location.search = urlParams.toString();
+        alert("Prouct added to cart");
+  }
+
   function addComment(){
     const name = prompt("Write your name");
     const comment = prompt("Add your comment");
@@ -131,6 +165,17 @@ if(isset($_GET['commentValue']) && isset($_GET['userName'])){
                 <li><a href="signUp.php">Sign Up</a></li>
                 <li><a href="logout.php">Log Out</a></li>
             </ul>
+            <div class="username">
+                <?php 
+                if(isset($firstName) && isset($lastName)){
+                    echo $firstName.", ".$lastName;}
+                ?>
+            </div>
+            <style>
+                .username{
+                    color: #fff;
+                }
+            </style>
               <div class="button">
                 <a href="cart.php">cart</a>
             </div>
@@ -195,12 +240,8 @@ if(isset($_GET['commentValue']) && isset($_GET['userName'])){
               <div class="product-description"> <?php echo $productDescription ?></div>
               <hr style="margin: 2% 70% 2% 5%;">
               <div class="cart-quantity">
-                <input type="button" value="Add To Cart" class="add-to-cart"/>
-                <div class="quantity">
-  <span>Count: <span class="count-value">0</span></span>
-  <input type="button" class="button-minus" value="-" onclick="decreaseCount()"/>
-  <input type="button" class="button-plus" value="+" onclick="increaseCount()"/>
-</div>
+                <input type="button" value="Add To Cart" class="add-to-cart" onclick="addToCart(true)"/>
+               
               </div>
         </div>
     </main>

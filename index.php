@@ -4,6 +4,12 @@ $isLoggedIn = false;
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     $isLoggedIn = true;
 }
+
+if(isset($_SESSION['user'])) {
+    $firstName = $_SESSION['user']['first_name'];
+    $lastName = $_SESSION['user']['last_name'];
+  }
+
 $servername = "localhost";
 $username = "ecommercepage";
 $password = "ecommerce";
@@ -47,6 +53,18 @@ $result = $conn->query($sql);
                 <li><a href="signUp.php">Sign Up</a></li>
                 <li><a href="logout.php">Log Out</a></li>
             </ul>
+            <div class="username">
+
+                <?php 
+                if(isset($firstName) && isset($lastName)){
+                echo $firstName.", ".$lastName;}
+                ?>
+            </div>
+            <style>
+                .username{
+                    color: #fff;
+                }
+            </style>
               <div class="button">
                 <a href="cart.php">cart</a>
             </div>

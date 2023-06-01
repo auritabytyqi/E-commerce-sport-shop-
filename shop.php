@@ -12,8 +12,13 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
+if(isset($_SESSION['user'])) {
+    $firstName = $_SESSION['user']['first_name'];
+    $lastName = $_SESSION['user']['last_name'];
+  }
 $sort = "";
+
+
 
 // Check if a sorting option is selected
 $query = "SELECT * FROM products";
@@ -116,6 +121,17 @@ mysqli_close($conn);
                 <li><a href="signUp.php">Sign Up</a></li>
                 <li><a href="logout.php">Log Out</a></li>
             </ul>
+            <div class="username">
+                <?php 
+                if(isset($firstName) && isset($lastName)){
+                    echo $firstName.", ".$lastName; }
+                ?>
+            </div>
+            <style>
+                .username{
+                    color: #fff;
+                }
+            </style>
               <div class="button">
                 <a href="cart.php">cart</a>
             </div>

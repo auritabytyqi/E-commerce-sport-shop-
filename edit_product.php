@@ -24,7 +24,6 @@ if ($result->num_rows == 1) {
     $product_name = $row["name"];
     $product_description = $row["description"];
     $product_price = $row["price"];
-    $product_category = $row["category_id"];
     $product_image = $row["image_url"];
 } else {
     echo "Product not found.";
